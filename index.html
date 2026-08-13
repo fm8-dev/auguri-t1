@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tanti Auguri Amore! 🎂</title>
+
+  <!-- Google Fonts per una tipografia elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #e8839b;
+      --secondary: #d96b86;
+      --bg: #fff5f7;
+      --card-bg: #ffffff;
+      --text: #4a3e3e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff5f7 0%, #fbe3e8 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 520px;
+      border-radius: 24px;
+      padding: 35px 25px;
+      box-shadow: 0 15px 35px rgba(232, 131, 155, 0.2);
+      text-align: center;
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    h1.cursive {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      font-size: 1rem;
+      color: #776868;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .question-box {
+      background: #fff8f9;
+      border: 2px dashed #f3c1cb;
+      border-radius: 18px;
+      padding: 25px 15px;
+      margin: 20px 0;
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      width: 100%;
+      position: relative;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-yes {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 6px 18px rgba(232, 131, 155, 0.4);
+      z-index: 2;
+    }
+
+    .btn-yes:hover {
+      background-color: var(--secondary);
+      transform: scale(1.06);
+    }
+
+    .btn-no {
+      background-color: #e2e2e2;
+      color: #666;
+      position: absolute;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    /* Sezione Regalo (Inizialmente nascosta) */
+    .gift-reveal {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .gift-card {
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+      border-radius: 20px;
+      padding: 25px;
+      margin-top: 15px;
+      color: #5d4037;
+      border: 1px solid #f48fb1;
+    }
+
+    .gift-badge {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .dates {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #ad1457;
+      margin: 10px 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="mainContainer">
+    <!-- FASE 1: Auguri e Quesito -->
+    <div id="quizStage">
+      <h1 class="cursive">Buon Compleanno! ✨</h1>
+      <p class="subtitle">Per festeggiare ho organizzato qualcosa di speciale...<br>Ma prima devo assicurarmi di una cosa importantissima!</p>
+
+      <div class="question-box" id="questionBox">
+        <h3 style="color: #6a4c4c; font-size: 1.1rem;">Sei libera nei giorni:</h3>
+        <p style="font-weight: 600; font-size: 1.25rem; color: var(--primary); margin: 8px 0;">
+          🗓️ 16 e 17 Novembre 2026?
+        </p>
+
+        <div class="btn-container">
+          <button class="btn-yes" onclick="revealGift()">SÌ, ASSOLUTAMENTE! 😍</button>
+          <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()" ontouchstart="moveButton()">No 😜</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2: Rivelazione del Regalo -->
+    <div class="gift-reveal" id="giftStage">
+      <h1 class="cursive">Sapevo che avresti detto di sì! 🥰</h1>
+      
+      <div class="gift-card">
+        <span class="gift-badge">Il tuo regalo di compleanno</span>
+        <h2>♨️ Weekend Relax & Terme 🏨</h2>
+        <p style="margin-top: 12px; font-size: 0.95rem;">
+          Prepariamo le valigie! Ci aspetta un'intera giornata di totale relax alle terme con notte in hotel inclusa.
+        </p>
+        <div class="dates">📍 16 - 17 Novembre 2026</div>
+        <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 15px;">
+          Niente pensieri, solo io, te e tanto relax. Auguri amore mio! ❤️
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Funzione per far scappare il tasto "NO"
+    function moveButton() {
+      const btn = document.getElementById('noBtn');
+      const box = document.getElementById('questionBox');
+      
+      const boxRect = box.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+
+      // Calcola posizioni casuali all'interno del box
+      const maxX = boxRect.width - btnRect.width - 20;
+      const maxY = boxRect.height - btnRect.height - 20;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+      btn.style.left = randomX + 'px';
+      btn.style.top = randomY + 'px';
+    }
+
+    // Funzione per mostrare il regalo
+    function revealGift() {
+      document.getElementById('quizStage').style.display = 'none';
+      document.getElementById('giftStage').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
