@@ -1,227 +1,398 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tanti Auguri Amore! 🎂</title>
-
-  <!-- Google Fonts per una tipografia elegante -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Una Sorpresa Speciale per Te 🏔️✨</title>
+  
+  <!-- Font Eleganti Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
-      --primary: #e8839b;
-      --secondary: #d96b86;
-      --bg: #fff5f7;
-      --card-bg: #ffffff;
-      --text: #4a3e3e;
+      --alpine-green: #1b3b2b;
+      --deep-forest: #12281d;
+      --warm-wood: #a86544;
+      --soft-gold: #d4a359;
+      --snow-white: #f8f9fa;
+      --cream-bg: #f4f0ea;
+      --card-shadow: 0 20px 40px rgba(18, 40, 29, 0.15);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #fff5f7 0%, #fbe3e8 100%);
-      color: var(--text);
       min-height: 100vh;
+      background: linear-gradient(180deg, #12281d 0%, #1b3b2b 40%, #2a4d3a 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #2c3e50;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       overflow-x: hidden;
     }
 
-    .container {
-      background-color: var(--card-bg);
+    /* Card Principale Mobile First */
+    .card {
+      background: rgba(253, 251, 247, 0.96);
+      border-radius: 28px;
+      padding: 32px 22px;
+      max-width: 440px;
       width: 100%;
-      max-width: 520px;
-      border-radius: 24px;
-      padding: 35px 25px;
-      box-shadow: 0 15px 35px rgba(232, 131, 155, 0.2);
       text-align: center;
+      box-shadow: var(--card-shadow);
       position: relative;
-      transition: all 0.4s ease;
+      border: 1px solid rgba(212, 163, 89, 0.3);
+      backdrop-filter: blur(10px);
     }
 
-    h1.cursive {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 10px;
+    .mountain-badge {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--warm-wood);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--alpine-green);
+      font-size: 2rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
     }
 
     p.subtitle {
+      color: #5a6b5c;
       font-size: 1rem;
-      color: #776868;
-      margin-bottom: 25px;
       line-height: 1.5;
+      margin-bottom: 24px;
     }
 
-    .question-box {
-      background: #fff8f9;
-      border: 2px dashed #f3c1cb;
-      border-radius: 18px;
-      padding: 25px 15px;
-      margin: 20px 0;
-      position: relative;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    .date-box {
+      background: #eef3ef;
+      border: 1.5px dashed var(--warm-wood);
+      border-radius: 16px;
+      padding: 14px;
+      margin: 18px 0 24px 0;
     }
 
-    .btn-container {
+    .date-box span {
+      display: block;
+      color: var(--alpine-green);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 4px;
+    }
+
+    /* Container Bottoni con Posizionamento Flessibile */
+    .btn-wrap {
       display: flex;
-      gap: 15px;
       justify-content: center;
       align-items: center;
-      margin-top: 20px;
-      width: 100%;
+      gap: 16px;
+      min-height: 64px;
       position: relative;
+      margin-top: 10px;
     }
 
     button {
-      padding: 12px 28px;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 15px 32px;
       border-radius: 50px;
+      border: none;
       cursor: pointer;
-      transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn-yes {
-      background-color: var(--primary);
-      color: white;
-      box-shadow: 0 6px 18px rgba(232, 131, 155, 0.4);
+      background: linear-gradient(135deg, var(--warm-wood) 0%, #8c4f31 100%);
+      color: var(--snow-white);
+      box-shadow: 0 8px 20px rgba(168, 101, 68, 0.35);
       z-index: 2;
     }
 
-    .btn-yes:hover {
-      background-color: var(--secondary);
-      transform: scale(1.06);
+    .btn-yes:active {
+      transform: scale(0.96);
     }
 
     .btn-no {
-      background-color: #e2e2e2;
+      background: #e0e0e0;
       color: #666;
       position: absolute;
-      transition: all 0.2s ease;
       z-index: 10;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      touch-action: none;
     }
 
-    /* Sezione Regalo (Inizialmente nascosta) */
-    .gift-reveal {
+    /* Sezione Svelamento Regalo */
+    .reveal-section {
       display: none;
-      animation: fadeIn 0.8s ease forwards;
+      animation: fadeInUp 0.7s ease-out forwards;
     }
 
-    .gift-card {
-      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
-      border-radius: 20px;
-      padding: 25px;
-      margin-top: 15px;
-      color: #5d4037;
-      border: 1px solid #f48fb1;
+    .reveal-section h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--alpine-green);
+      font-size: 1.8rem;
+      margin-bottom: 6px;
     }
 
-    .gift-badge {
-      display: inline-block;
-      background: white;
-      color: var(--primary);
+    .location-subtitle {
+      color: var(--warm-wood);
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* Countdown Styling */
+    .countdown-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+      background: #f0ede6;
+      padding: 14px;
+      border-radius: 18px;
+    }
+
+    .time-block {
+      background: #ffffff;
+      padding: 8px 4px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .time-number {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--alpine-green);
+      display: block;
+    }
+
+    .time-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #7a8b7c;
+      font-weight: 600;
+    }
+
+    /* Gallerie Immagini Struttura */
+    .photo-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      height: 180px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(18, 40, 29, 0.85));
+      color: white;
+      padding: 20px 12px 8px 12px;
       font-size: 0.85rem;
       font-weight: 600;
-      padding: 6px 16px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 15px;
+      text-align: left;
     }
 
-    .dates {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #ad1457;
-      margin: 10px 0;
+    .final-message {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #4a5a4c;
+      margin-top: 15px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 16px;
+      border-left: 4px solid var(--warm-wood);
+      text-align: left;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="container" id="mainContainer">
-    <!-- FASE 1: Auguri e Quesito -->
-    <div id="quizStage">
-      <h1 class="cursive">Buon Compleanno! ✨</h1>
-      <p class="subtitle">Per festeggiare ho organizzato qualcosa di speciale...<br>Ma prima devo assicurarmi di una cosa importantissima!</p>
+  <div class="card">
+    
+    <!-- STEP 1: La Domanda -->
+    <div id="step1">
+      <span class="mountain-badge">🏔️ Monte Bianco · Fuga D'Amore</span>
+      <h1>Buon Compleanno, Amore Mio! ❤️</h1>
+      <p class="subtitle">Ho preparato una sorpresa speciale per noi in mezzo alle montagne... Ma prima ho bisogno di una conferma fondamentale!</p>
+      
+      <div class="date-box">
+        <p style="font-size: 0.9rem; color: #666;">Sei ufficialmente occupata per i giorni:</p>
+        <span>16 & 17 Novembre 2026?</span>
+      </div>
 
-      <div class="question-box" id="questionBox">
-        <h3 style="color: #6a4c4c; font-size: 1.1rem;">Sei libera nei giorni:</h3>
-        <p style="font-weight: 600; font-size: 1.25rem; color: var(--primary); margin: 8px 0;">
-          🗓️ 16 e 17 Novembre 2026?
-        </p>
+      <div class="btn-wrap">
+        <button class="btn-yes" onclick="revealSurprise()">SÌ, CERTO! 😍</button>
+        <button class="btn-no" id="noBtn">No 😜</button>
+      </div>
+    </div>
 
-        <div class="btn-container">
-          <button class="btn-yes" onclick="revealGift()">SÌ, ASSOLUTAMENTE! 😍</button>
-          <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()" ontouchstart="moveButton()">No 😜</button>
+    <!-- STEP 2: Svelamento del Regalo -->
+    <div id="step2" class="reveal-section">
+      <span class="mountain-badge">✨ Il Tuo Regalo ✨</span>
+      <h2>Locanda Bellevue</h2>
+      <span class="location-subtitle">Pré-Saint-Didier · Valle d'Aosta 🏔️</span>
+
+      <p class="subtitle" style="margin-bottom: 10px;">
+        Ci aspetta un soggiorno da sogno con una giornata intera di relax alle <strong>QC Terme di Pré-Saint-Didier</strong>! 🧖‍♀️💆‍♂️
+      </p>
+
+      <!-- Countdown -->
+      <div class="countdown-container">
+        <div class="time-block">
+          <span class="time-number" id="days">00</span>
+          <span class="time-label">Giorni</span>
+        </div>
+        <div class="time-block">
+          <span class="time-number" id="hours">00</span>
+          <span class="time-label">Ore</span>
+        </div>
+        <div class="time-block">
+          <span class="time-number" id="minutes">00</span>
+          <span class="time-label">Minuti</span>
+        </div>
+        <div class="time-block">
+          <span class="time-number" id="seconds">00</span>
+          <span class="time-label">Sec</span>
         </div>
       </div>
-    </div>
 
-    <!-- FASE 2: Rivelazione del Regalo -->
-    <div class="gift-reveal" id="giftStage">
-      <h1 class="cursive">Sapevo che avresti detto di sì! 🥰</h1>
-      
-      <div class="gift-card">
-        <span class="gift-badge">Il tuo regalo di compleanno</span>
-        <h2>♨️ Weekend Relax & Terme 🏨</h2>
-        <p style="margin-top: 12px; font-size: 0.95rem;">
-          Prepariamo le valigie! Ci aspetta un'intera giornata di totale relax alle terme con notte in hotel inclusa.
-        </p>
-        <div class="dates">📍 16 - 17 Novembre 2026</div>
-        <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 15px;">
-          Niente pensieri, solo io, te e tanto relax. Auguri amore mio! ❤️
-        </p>
+      <!-- Foto della Struttura e Terme -->
+      <div class="photo-grid">
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="Locanda Bellevue Alpine Room">
+          <div class="photo-caption">🏡 Locanda Bellevue - Atmosfera Calda & Legno</div>
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="QC Terme Pre Saint Didier Spa">
+          <div class="photo-caption">🌊 QC Terme Pré-Saint-Didier</div>
+        </div>
+        <div class="photo-card">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="Monte Bianco Panorama">
+          <div class="photo-caption">🏔️ Panorama unico ai piedi del Monte Bianco</div>
+        </div>
+      </div>
+
+      <div class="final-message">
+        <strong>Dettagli del viaggio:</strong><br>
+        • Pernottamento & prima colazione in Hotel<br>
+        • Percorso Benessere Termale<br>
+        • Vista panoramica e aria di montagna<br><br>
+        <i>Tu devi solo preparare le valigie, al resto ci penso io! ❤️</i>
       </div>
     </div>
+
   </div>
 
   <script>
-    // Funzione per far scappare il tasto "NO"
-    function moveButton() {
-      const btn = document.getElementById('noBtn');
-      const box = document.getElementById('questionBox');
+    const noBtn = document.getElementById('noBtn');
+
+    // Funzione per far scappare il tasto "No" sia su Desktop che su Mobile Touch
+    function dodgeButton(e) {
+      if (e) e.preventDefault();
       
-      const boxRect = box.getBoundingClientRect();
-      const btnRect = btn.getBoundingClientRect();
+      const card = document.querySelector('.card');
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
 
-      // Calcola posizioni casuali all'interno del box
-      const maxX = boxRect.width - btnRect.width - 20;
-      const maxY = boxRect.height - btnRect.height - 20;
+      // Calcola i limiti per rimanere dentro la card senza sparire
+      const maxX = (cardRect.width / 2) - (btnRect.width / 2) - 20;
+      const maxY = (cardRect.height / 2) - (btnRect.height / 2) - 20;
 
-      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
-      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+      const randomX = (Math.random() * maxX * 2) - maxX;
+      const randomY = (Math.random() * maxY * 2) - maxY;
 
-      btn.style.left = randomX + 'px';
-      btn.style.top = randomY + 'px';
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
 
-    // Funzione per mostrare il regalo
-    function revealGift() {
-      document.getElementById('quizStage').style.display = 'none';
-      document.getElementById('giftStage').style.display = 'block';
+    // Eventi mouse per PC ed eventi Touch per Smartphone
+    noBtn.addEventListener('mouseover', dodgeButton);
+    noBtn.addEventListener('touchstart', dodgeButton, { passive: false });
+    noBtn.addEventListener('click', dodgeButton);
+
+    // Svelamento sorpresa e coriandoli
+    function revealSurprise() {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+
+      // Esplosione Coriandoli Eleganti
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#a86544', '#1b3b2b', '#d4a359', '#ffffff']
+      });
+
+      startCountdown();
+    }
+
+    // Countdown dinamico fino al 16 Novembre 2026
+    function startCountdown() {
+      const targetDate = new Date('November 16, 2026 09:00:00').getTime();
+
+      function update() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+          const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+          document.getElementById('days').innerText = String(d).padStart(2, '0');
+          document.getElementById('hours').innerText = String(h).padStart(2, '0');
+          document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+          document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+        }
+      }
+
+      update();
+      setInterval(update, 1000);
     }
   </script>
+
 </body>
 </html>
