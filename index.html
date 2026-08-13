@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Una Sorpresa Speciale per Te 🏔️✨</title>
+  <title>Tanti Auguri! 🎉 · Una Sorpresa per Te</title>
   
-  <!-- Font Eleganti Google -->
+  <!-- Google Fonts Eleganti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti Library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -16,12 +16,12 @@
   <style>
     :root {
       --alpine-green: #1b3b2b;
-      --deep-forest: #12281d;
+      --deep-forest: #102419;
       --warm-wood: #a86544;
       --soft-gold: #d4a359;
       --snow-white: #f8f9fa;
-      --cream-bg: #f4f0ea;
-      --card-shadow: 0 20px 40px rgba(18, 40, 29, 0.15);
+      --light-bg: #f4f0ea;
+      --card-shadow: 0 20px 40px rgba(16, 36, 25, 0.2);
     }
 
     * {
@@ -33,7 +33,7 @@
 
     body {
       min-height: 100vh;
-      background: linear-gradient(180deg, #12281d 0%, #1b3b2b 40%, #2a4d3a 100%);
+      background: linear-gradient(180deg, var(--deep-forest) 0%, var(--alpine-green) 50%, #2a4d3a 100%);
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #2c3e50;
       display: flex;
@@ -43,11 +43,10 @@
       overflow-x: hidden;
     }
 
-    /* Card Principale Mobile First */
     .card {
-      background: rgba(253, 251, 247, 0.96);
+      background: rgba(253, 251, 247, 0.97);
       border-radius: 28px;
-      padding: 32px 22px;
+      padding: 30px 22px;
       max-width: 440px;
       width: 100%;
       text-align: center;
@@ -57,8 +56,30 @@
       backdrop-filter: blur(10px);
     }
 
+    /* Indicatore di Progresso a Punti */
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d1d8d3;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: var(--warm-wood);
+      width: 24px;
+      border-radius: 12px;
+    }
+
     .mountain-badge {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--warm-wood);
@@ -67,109 +88,132 @@
       display: block;
     }
 
-    h1 {
+    h1, h2 {
       font-family: 'Playfair Display', serif;
       color: var(--alpine-green);
-      font-size: 2rem;
       line-height: 1.25;
       margin-bottom: 12px;
     }
 
+    h1 { font-size: 1.85rem; }
+    h2 { font-size: 1.65rem; }
+
     p.subtitle {
       color: #5a6b5c;
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 24px;
+      font-size: 0.98rem;
+      line-height: 1.55;
+      margin-bottom: 22px;
     }
 
-    .date-box {
-      background: #eef3ef;
-      border: 1.5px dashed var(--warm-wood);
+    /* Pagine / Step Switch */
+    .page {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* Bottoni e Layout */
+    .btn-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      min-height: 70px;
+      position: relative;
+      margin-top: 15px;
+    }
+
+    button {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--warm-wood) 0%, #8c4f31 100%);
+      color: var(--snow-white);
+      box-shadow: 0 8px 20px rgba(168, 101, 68, 0.3);
+      width: 100%;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, var(--alpine-green) 0%, #102419 100%);
+      color: var(--snow-white);
+      box-shadow: 0 8px 20px rgba(27, 59, 43, 0.3);
+      z-index: 2;
+      flex: 1;
+    }
+
+    .btn-no {
+      background: #e2e8e4;
+      color: #555;
+      z-index: 10;
+      flex: 1;
+      position: relative;
+      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      touch-action: none;
+    }
+
+    /* Step 2: Schede Indizio */
+    .clue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .clue-item {
+      background: #ffffff;
+      padding: 14px 16px;
       border-radius: 16px;
-      padding: 14px;
-      margin: 18px 0 24px 0;
+      border-left: 4px solid var(--warm-wood);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.92rem;
+      color: #334e3e;
+      font-weight: 500;
+    }
+
+    .clue-icon {
+      font-size: 1.5rem;
+    }
+
+    /* Box Date */
+    .date-box {
+      background: #eef4f0;
+      border: 1.5px dashed var(--warm-wood);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 18px 0;
     }
 
     .date-box span {
       display: block;
       color: var(--alpine-green);
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-top: 4px;
     }
 
-    /* Container Bottoni con Posizionamento Flessibile */
-    .btn-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-      min-height: 64px;
-      position: relative;
-      margin-top: 10px;
-    }
-
-    button {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      padding: 15px 32px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .btn-yes {
-      background: linear-gradient(135deg, var(--warm-wood) 0%, #8c4f31 100%);
-      color: var(--snow-white);
-      box-shadow: 0 8px 20px rgba(168, 101, 68, 0.35);
-      z-index: 2;
-    }
-
-    .btn-yes:active {
-      transform: scale(0.96);
-    }
-
-    .btn-no {
-      background: #e0e0e0;
-      color: #666;
-      position: absolute;
-      z-index: 10;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-      touch-action: none;
-    }
-
-    /* Sezione Svelamento Regalo */
-    .reveal-section {
-      display: none;
-      animation: fadeInUp 0.7s ease-out forwards;
-    }
-
-    .reveal-section h2 {
-      font-family: 'Playfair Display', serif;
-      color: var(--alpine-green);
-      font-size: 1.8rem;
-      margin-bottom: 6px;
-    }
-
-    .location-subtitle {
-      color: var(--warm-wood);
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    /* Countdown Styling */
+    /* Countdown */
     .countdown-container {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin: 20px 0;
+      margin: 18px 0;
       background: #f0ede6;
-      padding: 14px;
+      padding: 12px;
       border-radius: 18px;
     }
 
@@ -181,14 +225,14 @@
     }
 
     .time-number {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: var(--alpine-green);
       display: block;
     }
 
     .time-label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       color: #7a8b7c;
       font-weight: 600;
@@ -199,7 +243,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      margin: 22px 0;
+      margin: 20px 0;
     }
 
     .photo-card {
@@ -207,7 +251,7 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-      height: 180px;
+      height: 175px;
     }
 
     .photo-card img {
@@ -222,28 +266,28 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(transparent, rgba(18, 40, 29, 0.85));
+      background: linear-gradient(transparent, rgba(16, 36, 25, 0.85));
       color: white;
-      padding: 20px 12px 8px 12px;
+      padding: 18px 12px 8px 12px;
       font-size: 0.85rem;
       font-weight: 600;
       text-align: left;
     }
 
-    .final-message {
-      font-size: 0.95rem;
+    .summary-box {
+      font-size: 0.92rem;
       line-height: 1.6;
-      color: #4a5a4c;
-      margin-top: 15px;
-      background: #fff;
+      color: #3b4c3e;
+      background: #ffffff;
       padding: 16px;
       border-radius: 16px;
-      border-left: 4px solid var(--warm-wood);
+      border: 1px solid #e2ece5;
       text-align: left;
+      margin-top: 15px;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(25px); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -252,31 +296,74 @@
 
   <div class="card">
     
-    <!-- STEP 1: La Domanda -->
-    <div id="step1">
-      <span class="mountain-badge">🏔️ Monte Bianco · Fuga D'Amore</span>
-      <h1>Buon Compleanno, Amore Mio! ❤️</h1>
-      <p class="subtitle">Ho preparato una sorpresa speciale per noi in mezzo alle montagne... Ma prima ho bisogno di una conferma fondamentale!</p>
-      
-      <div class="date-box">
-        <p style="font-size: 0.9rem; color: #666;">Sei ufficialmente occupata per i giorni:</p>
-        <span>16 & 17 Novembre 2026?</span>
+    <!-- Indicatori di Stato -->
+    <div class="step-indicator">
+      <div class="dot active" id="dot1"></div>
+      <div class="dot" id="dot2"></div>
+      <div class="dot" id="dot3"></div>
+      <div class="dot" id="dot4"></div>
+    </div>
+
+    <!-- PAGINA 1: WELCOME & TEASER -->
+    <div class="page active" id="page1">
+      <span class="mountain-badge">🎂 Speciale Compleanno</span>
+      <h1>Tanti Auguri! 🎉</h1>
+      <p class="subtitle">
+        Per festeggiare questo compleanno c'è un programma speciale che ti aspetta. 
+        Prima di svelarti dove andremo, ho preparato qualche piccolo indizio...
+      </p>
+      <button class="btn-primary" onclick="goToPage(2)">Iniziamo! ➡️</button>
+    </div>
+
+    <!-- PAGINA 2: GLI INDIZI (SUSPENSE) -->
+    <div class="page" id="page2">
+      <span class="mountain-badge">🔍 Indizi sulla Destinazione</span>
+      <h2>Tre indizi per te...</h2>
+      <p class="subtitle">Riuscirai a indovinare cosa sto organizzando?</p>
+
+      <div class="clue-list">
+        <div class="clue-item">
+          <span class="clue-icon">🏔️</span>
+          <span>Aria pulita e vette imponenti ai piedi del Monte Bianco.</span>
+        </div>
+        <div class="clue-item">
+          <span class="clue-icon">🧖‍♀️</span>
+          <span>Idromassaggi all'aperto e relax totale nelle acque termali.</span>
+        </div>
+        <div class="clue-item">
+          <span class="clue-icon">🏨</span>
+          <span>Una notte speciale in una locanda dallo stile alpino.</span>
+        </div>
       </div>
 
-      <div class="btn-wrap">
-        <button class="btn-yes" onclick="revealSurprise()">SÌ, CERTO! 😍</button>
+      <button class="btn-primary" onclick="goToPage(3)">Scopri il resto ➡️</button>
+    </div>
+
+    <!-- PAGINA 3: LA VERIFICA DATE (TASTO "NO" SFUGGENTE) -->
+    <div class="page" id="page3">
+      <span class="mountain-badge">🗓️ Unico Dettaglio</span>
+      <h2>Verifica disponibilità!</h2>
+      <p class="subtitle">Prima di svelare la struttura esatta, dobbiamo confermare le date...</p>
+
+      <div class="date-box">
+        <p style="font-size: 0.88rem; color: #666;">Sei libera nei giorni:</p>
+        <span>16 e 17 Novembre 2026?</span>
+      </div>
+
+      <div class="btn-wrap" id="btnWrap">
+        <button class="btn-yes" onclick="revealGift()">SÌ! 😍</button>
         <button class="btn-no" id="noBtn">No 😜</button>
       </div>
     </div>
 
-    <!-- STEP 2: Svelamento del Regalo -->
-    <div id="step2" class="reveal-section">
+    <!-- PAGINA 4: SVELAMENTO FINALE -->
+    <div class="page" id="page4">
       <span class="mountain-badge">✨ Il Tuo Regalo ✨</span>
       <h2>Locanda Bellevue</h2>
-      <span class="location-subtitle">Pré-Saint-Didier · Valle d'Aosta 🏔️</span>
+      <p style="color: var(--warm-wood); font-weight: 700; margin-bottom: 12px;">Pré-Saint-Didier · Valle d'Aosta 🏔️</p>
 
-      <p class="subtitle" style="margin-bottom: 10px;">
-        Ci aspetta un soggiorno da sogno con una giornata intera di relax alle <strong>QC Terme di Pré-Saint-Didier</strong>! 🧖‍♀️💆‍♂️
+      <p class="subtitle" style="margin-bottom: 8px;">
+        Soggiorno e giornata intera di relax alle <strong>QC Terme di Pré-Saint-Didier</strong>!
       </p>
 
       <!-- Countdown -->
@@ -299,11 +386,11 @@
         </div>
       </div>
 
-      <!-- Foto della Struttura e Terme -->
+      <!-- Gallerie Foto Struttura -->
       <div class="photo-grid">
         <div class="photo-card">
           <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="Locanda Bellevue Alpine Room">
-          <div class="photo-caption">🏡 Locanda Bellevue - Atmosfera Calda & Legno</div>
+          <div class="photo-caption">🏡 Locanda Bellevue - Stile Alpino & Relax</div>
         </div>
         <div class="photo-card">
           <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="QC Terme Pre Saint Didier Spa">
@@ -311,56 +398,70 @@
         </div>
         <div class="photo-card">
           <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="Monte Bianco Panorama">
-          <div class="photo-caption">🏔️ Panorama unico ai piedi del Monte Bianco</div>
+          <div class="photo-caption">🏔️ Panorama ai piedi del Monte Bianco</div>
         </div>
       </div>
 
-      <div class="final-message">
-        <strong>Dettagli del viaggio:</strong><br>
-        • Pernottamento & prima colazione in Hotel<br>
-        • Percorso Benessere Termale<br>
-        • Vista panoramica e aria di montagna<br><br>
-        <i>Tu devi solo preparare le valigie, al resto ci penso io! ❤️</i>
+      <div class="summary-box">
+        <strong>Cosa include l'esperienza:</strong><br>
+        • Pernottamento & colazione alla Locanda Bellevue<br>
+        • Percorso Benessere QC Terme Pré-Saint-Didier<br>
+        • Panorama e totale relax in montagna<br><br>
+        <i>Prepara solo la valigia, al resto ci penso io!</i>
       </div>
     </div>
 
   </div>
 
   <script>
+    // Navigazione tra le pagine
+    function goToPage(pageNum) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page${pageNum}`).classList.add('active');
+
+      // Aggiorna i pallini del progresso
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        if (i === pageNum) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      }
+    }
+
+    // Gestione del Tasto "No" Sfuggente (Corretto Bug Sovrapposizione)
     const noBtn = document.getElementById('noBtn');
 
-    // Funzione per far scappare il tasto "No" sia su Desktop che su Mobile Touch
     function dodgeButton(e) {
       if (e) e.preventDefault();
-      
-      const card = document.querySelector('.card');
-      const cardRect = card.getBoundingClientRect();
+
+      const btnWrap = document.getElementById('btnWrap');
+      const wrapRect = btnWrap.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
 
-      // Calcola i limiti per rimanere dentro la card senza sparire
-      const maxX = (cardRect.width / 2) - (btnRect.width / 2) - 20;
-      const maxY = (cardRect.height / 2) - (btnRect.height / 2) - 20;
+      // Calcola uno spostamento casuale pulito rimanendo nei paraggi del box
+      const maxX = (wrapRect.width / 2) - (btnRect.width / 2) - 10;
+      const maxY = 60; // Limite verticale
 
-      const randomX = (Math.random() * maxX * 2) - maxX;
-      const randomY = (Math.random() * maxY * 2) - maxY;
+      const randomX = (Math.random() - 0.5) * maxX * 2;
+      const randomY = (Math.random() - 0.5) * maxY * 2;
 
       noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
     }
 
-    // Eventi mouse per PC ed eventi Touch per Smartphone
     noBtn.addEventListener('mouseover', dodgeButton);
     noBtn.addEventListener('touchstart', dodgeButton, { passive: false });
     noBtn.addEventListener('click', dodgeButton);
 
-    // Svelamento sorpresa e coriandoli
-    function revealSurprise() {
-      document.getElementById('step1').style.display = 'none';
-      document.getElementById('step2').style.display = 'block';
+    // Svelamento Finale
+    function revealGift() {
+      goToPage(4);
 
-      // Esplosione Coriandoli Eleganti
+      // Coriandoli d'effetto
       confetti({
-        particleCount: 100,
-        spread: 80,
+        particleCount: 110,
+        spread: 85,
         origin: { y: 0.6 },
         colors: ['#a86544', '#1b3b2b', '#d4a359', '#ffffff']
       });
@@ -368,7 +469,7 @@
       startCountdown();
     }
 
-    // Countdown dinamico fino al 16 Novembre 2026
+    // Countdown Dinamico fino al 16 Novembre 2026
     function startCountdown() {
       const targetDate = new Date('November 16, 2026 09:00:00').getTime();
 
