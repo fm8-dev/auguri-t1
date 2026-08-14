@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Tanti Auguri! 🎉 · Una Sorpresa per Te</title>
+  <title>Tanti Auguri Marghe! 🎉</title>
   
   <!-- Google Fonts Eleganti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +56,7 @@
       backdrop-filter: blur(10px);
     }
 
-    /* Indicatore di Progresso a Punti */
+    /* Indicatore di Progresso a Punti (Ora sono 5) */
     .step-indicator {
       display: flex;
       justify-content: center;
@@ -162,7 +162,41 @@
       touch-action: none;
     }
 
-    /* Step 2: Schede Indizio */
+    /* Stili per il Quiz (Pagina 2) */
+    .choice-btn {
+      display: block;
+      width: 100%;
+      background: #ffffff;
+      color: var(--alpine-green);
+      border: 2px solid #e2ece5;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+    }
+
+    .choice-btn:hover, .choice-btn.selected {
+      border-color: var(--warm-wood);
+      background: #fffcf9;
+      transform: translateY(-2px);
+    }
+
+    #feedback-box {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #eef4f0;
+      color: var(--alpine-green);
+      font-weight: 600;
+      font-size: 0.95rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Step 3: Schede Indizio */
     .clue-list {
       display: flex;
       flex-direction: column;
@@ -185,9 +219,7 @@
       font-weight: 500;
     }
 
-    .clue-icon {
-      font-size: 1.5rem;
-    }
+    .clue-icon { font-size: 1.5rem; }
 
     /* Box Date */
     .date-box {
@@ -204,6 +236,45 @@
       font-weight: 700;
       font-size: 1.25rem;
       margin-top: 4px;
+    }
+
+    /* Due Regali Highlight */
+    .highlight-boxes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .highlight-box {
+      background: #ffffff;
+      border: 1px solid #e2ece5;
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .highlight-box .icon {
+      font-size: 2rem;
+      background: var(--light-bg);
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .highlight-box h3 {
+      font-size: 1rem;
+      color: var(--alpine-green);
+      margin-bottom: 2px;
+    }
+    
+    .highlight-box p {
+      font-size: 0.85rem;
+      color: #5a6b5c;
+      margin: 0;
     }
 
     /* Countdown */
@@ -238,42 +309,6 @@
       font-weight: 600;
     }
 
-    /* Gallerie Immagini Struttura */
-    .photo-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .photo-card {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-      height: 175px;
-    }
-
-    .photo-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .photo-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(16, 36, 25, 0.85));
-      color: white;
-      padding: 18px 12px 8px 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-align: left;
-    }
-
     .summary-box {
       font-size: 0.92rem;
       line-height: 1.6;
@@ -302,21 +337,38 @@
       <div class="dot" id="dot2"></div>
       <div class="dot" id="dot3"></div>
       <div class="dot" id="dot4"></div>
+      <div class="dot" id="dot5"></div>
     </div>
 
-    <!-- PAGINA 1: WELCOME & TEASER -->
+    <!-- PAGINA 1: WELCOME -->
     <div class="page active" id="page1">
-      <span class="mountain-badge">🎂 Speciale Compleanno</span>
-      <h1>Tanti Auguri! 🎉</h1>
+      <span class="mountain-badge">IL TUO REGALO DI COMPLEANNO</span>
+      <h1>Tanti Auguri Marghe! 🎉</h1>
       <p class="subtitle">
-        Per festeggiare questo compleanno c'è un programma speciale che ti aspetta. 
-        Prima di svelarti dove andremo, ho preparato qualche piccolo indizio...
+        Per festeggiare il tuo compleanno ho preparato una sorpresina. Prima di svelartela, ho preparato qualche piccolo indizio...
       </p>
       <button class="btn-primary" onclick="goToPage(2)">Iniziamo! ➡️</button>
     </div>
 
-    <!-- PAGINA 2: GLI INDIZI (SUSPENSE) -->
+    <!-- PAGINA 2: IL QUIZ (NUOVA PAGINA) -->
     <div class="page" id="page2">
+      <span class="mountain-badge">🤔 Indovina un po'</span>
+      <h2>Secondo te, di cosa si tratta?</h2>
+      <p class="subtitle">Fai la tua scelta prima di procedere!</p>
+
+      <div class="choices-container">
+        <button class="choice-btn" onclick="selectChoice('fisico', this)">🎁 Un regalo fisico</button>
+        <button class="choice-btn" onclick="selectChoice('gita', this)">🚗 Una gita fuori porta</button>
+        <button class="choice-btn" onclick="selectChoice('io', this)">😎 Io (perché sono il regalo migliore)</button>
+      </div>
+
+      <div id="feedback-box"></div>
+      
+      <button class="btn-primary" id="btn-next-quiz" style="display: none; margin-top: 15px;" onclick="goToPage(3)">Andiamo agli indizi ➡️</button>
+    </div>
+
+    <!-- PAGINA 3: GLI INDIZI -->
+    <div class="page" id="page3">
       <span class="mountain-badge">🔍 Indizi sulla Destinazione</span>
       <h2>Tre indizi per te...</h2>
       <p class="subtitle">Riuscirai a indovinare cosa sto organizzando?</p>
@@ -336,14 +388,14 @@
         </div>
       </div>
 
-      <button class="btn-primary" onclick="goToPage(3)">Scopri il resto ➡️</button>
+      <button class="btn-primary" onclick="goToPage(4)">Scopri il resto ➡️</button>
     </div>
 
-    <!-- PAGINA 3: LA VERIFICA DATE (TASTO "NO" SFUGGENTE) -->
-    <div class="page" id="page3">
+    <!-- PAGINA 4: LA VERIFICA DATE -->
+    <div class="page" id="page4">
       <span class="mountain-badge">🗓️ Unico Dettaglio</span>
       <h2>Verifica disponibilità!</h2>
-      <p class="subtitle">Prima di svelare la struttura esatta, dobbiamo confermare le date...</p>
+      <p class="subtitle">Prima di svelare la destinazione esatta, dobbiamo confermare le date...</p>
 
       <div class="date-box">
         <p style="font-size: 0.88rem; color: #666;">Sei libera nei giorni:</p>
@@ -356,15 +408,31 @@
       </div>
     </div>
 
-    <!-- PAGINA 4: SVELAMENTO FINALE -->
-    <div class="page" id="page4">
+    <!-- PAGINA 5: SVELAMENTO FINALE -->
+    <div class="page" id="page5">
       <span class="mountain-badge">✨ Il Tuo Regalo ✨</span>
-      <h2>Locanda Bellevue</h2>
-      <p style="color: var(--warm-wood); font-weight: 700; margin-bottom: 12px;">Pré-Saint-Didier · Valle d'Aosta 🏔️</p>
-
-      <p class="subtitle" style="margin-bottom: 8px;">
-        Soggiorno e giornata intera di relax alle <strong>QC Terme di Pré-Saint-Didier</strong>!
+      <h2>Un Weekend Speciale!</h2>
+      <p class="subtitle" style="margin-bottom: 5px;">
+        Ti aspetta un soggiorno di puro relax in Valle d'Aosta. Il regalo comprende due esperienze:
       </p>
+
+      <!-- I Due Regali Ben Visibili -->
+      <div class="highlight-boxes">
+        <div class="highlight-box">
+          <div class="icon">🌊</div>
+          <div>
+            <h3>QC Terme</h3>
+            <p>Ingresso e percorso benessere a Pré-Saint-Didier</p>
+          </div>
+        </div>
+        <div class="highlight-box">
+          <div class="icon">🏡</div>
+          <div>
+            <h3>Locanda Bellevue</h3>
+            <p>Pernottamento nella magia dell'atmosfera alpina</p>
+          </div>
+        </div>
+      </div>
 
       <!-- Countdown -->
       <div class="countdown-container">
@@ -386,27 +454,12 @@
         </div>
       </div>
 
-      <!-- Gallerie Foto Struttura -->
-      <div class="photo-grid">
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="Locanda Bellevue Alpine Room">
-          <div class="photo-caption">🏡 Locanda Bellevue - Stile Alpino & Relax</div>
-        </div>
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="QC Terme Pre Saint Didier Spa">
-          <div class="photo-caption">🌊 QC Terme Pré-Saint-Didier</div>
-        </div>
-        <div class="photo-card">
-          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="Monte Bianco Panorama">
-          <div class="photo-caption">🏔️ Panorama ai piedi del Monte Bianco</div>
-        </div>
-      </div>
-
       <div class="summary-box">
-        <strong>Cosa include l'esperienza:</strong><br>
-        • Pernottamento & colazione alla Locanda Bellevue<br>
-        • Percorso Benessere QC Terme Pré-Saint-Didier<br>
-        • Panorama e totale relax in montagna<br><br>
+        <strong>Cosa include l'esperienza:</strong><br><br>
+        🚗 Viaggio A/R da Candelo a Pré-Saint-Didier<br>
+        🥐 Pernottamento e colazione alla Locanda Bellevue<br>
+        🧖‍♀️ Ingresso al Percorso Benessere QC Terme<br>
+        🏔️ Panorama e relax totale in montagna<br><br>
         <i>Prepara solo la valigia, al resto ci penso io!</i>
       </div>
     </div>
@@ -420,7 +473,7 @@
       document.getElementById(`page${pageNum}`).classList.add('active');
 
       // Aggiorna i pallini del progresso
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 5; i++) {
         const dot = document.getElementById(`dot${i}`);
         if (i === pageNum) {
           dot.classList.add('active');
@@ -430,7 +483,30 @@
       }
     }
 
-    // Gestione del Tasto "No" Sfuggente (Corretto Bug Sovrapposizione)
+    // Gestione della Pagina 2 (Quiz Scelta)
+    function selectChoice(type, btnElement) {
+      // Rimuovi la classe selected da tutti
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      // Aggiungila a quello cliccato
+      btnElement.classList.add('selected');
+
+      const feedbackBox = document.getElementById('feedback-box');
+      const nextBtn = document.getElementById('btn-next-quiz');
+      
+      // Mostra un messaggio simpatico in base alla scelta
+      if(type === 'fisico') {
+        feedbackBox.innerHTML = "Sbagliato! La roba fisica prende troppa polvere in casa. 🙅‍♂️";
+      } else if (type === 'gita') {
+        feedbackBox.innerHTML = "Mmh... sei sulla strada giusta! Ma dire 'gita' è decisamente riduttivo... 😏";
+      } else if (type === 'io') {
+        feedbackBox.innerHTML = "Assolutamente sì! 😎 Ma siccome non volevo sembrare tirchio, ho aggiunto anche qualcos'altro...";
+      }
+
+      feedbackBox.style.display = 'block';
+      nextBtn.style.display = 'block';
+    }
+
+    // Gestione del Tasto "No" Sfuggente
     const noBtn = document.getElementById('noBtn');
 
     function dodgeButton(e) {
@@ -440,7 +516,6 @@
       const wrapRect = btnWrap.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
 
-      // Calcola uno spostamento casuale pulito rimanendo nei paraggi del box
       const maxX = (wrapRect.width / 2) - (btnRect.width / 2) - 10;
       const maxY = 60; // Limite verticale
 
@@ -456,12 +531,12 @@
 
     // Svelamento Finale
     function revealGift() {
-      goToPage(4);
+      goToPage(5);
 
-      // Coriandoli d'effetto
+      // Coriandoli
       confetti({
-        particleCount: 110,
-        spread: 85,
+        particleCount: 120,
+        spread: 90,
         origin: { y: 0.6 },
         colors: ['#a86544', '#1b3b2b', '#d4a359', '#ffffff']
       });
